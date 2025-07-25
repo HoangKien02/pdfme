@@ -6,9 +6,13 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
+    "setup": "./setup.sh",
+    "setup:fonts": "mkdir -p fonts && cd fonts && curl -o NotoSansJP.ttf 'https://fonts.gstatic.com/s/notosansjp/v53/-F6jfjtqLzI2JPCgQBnw7HFyzSD-AsregP8VFBEj75vY0rw-oME.ttf' && curl -o NotoSerifJP.ttf 'https://fonts.gstatic.com/s/notoserifjp/v30/xn71YHs72GKoTvER4Gn3b5eMRtWGkp6o7MjQ2bwxOubAILO5wBCU.ttf' && curl -o PinyonScript-Regular.ttf 'https://fonts.gstatic.com/s/pinyonscript/v22/6xKpdSJbL9-e9LuoeQiDRQR8aOLQO4bhiDY.ttf'",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "health": "curl -s http://localhost:3001/health | json_pp || curl -s http://localhost:3001/health",
+    "sample": "curl -s http://localhost:3001/sample-template --output sample-test.pdf && echo 'Sample PDF saved as sample-test.pdf'"
   },
   "dependencies": {
     "@pdfme/common": "^4.5.2",
