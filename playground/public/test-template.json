@@ -1,0 +1,679 @@
+{
+  "template": {
+    "metaData": {
+      "title": "Sample Template",
+      "description": "A sample template",
+      "tags": [],
+      "status": "draft"
+    },
+    "templateData": {
+      "schemas": [
+        [
+          {
+            "name": "入力項目1",
+            "type": "text",
+            "content": "納品書",
+            "position": {
+              "x": 0,
+              "y": 7.06
+            },
+            "width": 210.07,
+            "height": 13.43,
+            "rotate": 0,
+            "alignment": "center",
+            "verticalAlignment": "top",
+            "fontSize": 23,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false,
+            "readOnly": false
+          },
+          {
+            "name": "入力項目2",
+            "type": "text",
+            "content": "No.",
+            "position": {
+              "x": 152.92,
+              "y": 6.08
+            },
+            "width": 45,
+            "height": 10,
+            "rotate": 0,
+            "alignment": "left",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目3",
+            "type": "text",
+            "content": "[納品書] 番号",
+            "position": {
+              "x": 155.31,
+              "y": 6.08
+            },
+            "width": 45,
+            "height": 10,
+            "rotate": 0,
+            "alignment": "right",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目4",
+            "type": "text",
+            "content": "[納品書] 納品書日付",
+            "position": {
+              "x": 153.19,
+              "y": 13.49
+            },
+            "width": 47.12,
+            "height": 10,
+            "rotate": 0,
+            "alignment": "right",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目5",
+            "type": "text",
+            "content": "[取引先] 取引先名",
+            "position": {
+              "x": 10.32,
+              "y": 26.46
+            },
+            "width": 56.11,
+            "height": 10,
+            "rotate": 0,
+            "alignment": "left",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目6",
+            "type": "text",
+            "content": "[取引先] 敬称",
+            "position": {
+              "x": 68.26,
+              "y": 26.45
+            },
+            "width": 45,
+            "height": 10,
+            "rotate": 0,
+            "alignment": "left",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目7",
+            "type": "line",
+            "position": {
+              "x": 8,
+              "y": 34.58
+            },
+            "width": 77.51,
+            "height": 0.25,
+            "rotate": 0,
+            "opacity": 1,
+            "readOnly": true,
+            "color": "#000000",
+            "required": false,
+            "content": ""
+          },
+          {
+            "name": "入力項目8",
+            "type": "text",
+            "content": "[会社] 会社名",
+            "position": {
+              "x": 125.94,
+              "y": 26.19
+            },
+            "width": 74.37,
+            "height": 10,
+            "rotate": 0,
+            "alignment": "left",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目9",
+            "type": "text",
+            "content": "[会社] 郵便番号",
+            "position": {
+              "x": 126.21,
+              "y": 33.87
+            },
+            "width": 74.37,
+            "height": 10,
+            "rotate": 0,
+            "alignment": "left",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目10",
+            "type": "text",
+            "content": "[会社] 所在地",
+            "position": {
+              "x": 126.21,
+              "y": 41.54
+            },
+            "width": 74.37,
+            "height": 10,
+            "rotate": 0,
+            "alignment": "left",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目11",
+            "type": "text",
+            "content": "[会社] 建物名・部屋番号",
+            "position": {
+              "x": 126.74,
+              "y": 49.48
+            },
+            "width": 73.84,
+            "height": 10,
+            "rotate": 0,
+            "alignment": "left",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目12",
+            "type": "text",
+            "content": "FAX：",
+            "position": {
+              "x": 126.74,
+              "y": 64.56
+            },
+            "width": 45,
+            "height": 10,
+            "rotate": 0,
+            "alignment": "left",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目13",
+            "type": "text",
+            "content": "[取引先] FAX番号",
+            "position": {
+              "x": 138.65,
+              "y": 64.56
+            },
+            "width": 61.93,
+            "height": 10,
+            "rotate": 0,
+            "alignment": "left",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目14",
+            "type": "text",
+            "content": "合計金額",
+            "position": {
+              "x": 10.59,
+              "y": 69.85
+            },
+            "width": 45,
+            "height": 10,
+            "rotate": 0,
+            "alignment": "left",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目15",
+            "type": "text",
+            "content": "￥",
+            "position": {
+              "x": 40.47,
+              "y": 69.86
+            },
+            "width": 45,
+            "height": 9.73,
+            "rotate": 0,
+            "alignment": "left",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目16",
+            "type": "text",
+            "content": "[出庫] 合計金額",
+            "position": {
+              "x": 45.77,
+              "y": 69.85
+            },
+            "width": 45,
+            "height": 10,
+            "rotate": 0,
+            "alignment": "left",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目17",
+            "type": "line",
+            "position": {
+              "x": 8,
+              "y": 77.58
+            },
+            "width": 77.78,
+            "height": 0.25,
+            "rotate": 0,
+            "opacity": 1,
+            "readOnly": true,
+            "color": "#000000",
+            "required": false,
+            "content": ""
+          },
+          {
+            "name": "入力項目18",
+            "type": "table",
+            "position": {
+              "x": 8.2,
+              "y": 83.34
+            },
+            "width": 193.38,
+            "height": 25.759200000000003,
+            "content": "[[\"[出庫] 物品名\",\"[出庫] 出庫数量\",\"[出庫] 納品単価\",\"[出庫] 金額\"]]",
+            "showHead": true,
+            "head": [
+              "物品名",
+              "数量",
+              "単価",
+              "金額"
+            ],
+            "headWidthPercentages": [
+              47.83871134553729,
+              15.777484745061537,
+              16.554969490123064,
+              19.82883441927811
+            ],
+            "tableStyles": {
+              "borderWidth": 0.3,
+              "borderColor": "#000000"
+            },
+            "headStyles": {
+              "fontSize": 13,
+              "characterSpacing": 0,
+              "alignment": "left",
+              "verticalAlignment": "middle",
+              "lineHeight": 1,
+              "fontColor": "#000000",
+              "borderColor": "#000000",
+              "backgroundColor": "#ffffff",
+              "borderWidth": {
+                "top": 0.1,
+                "right": 0.1,
+                "bottom": 0.1,
+                "left": 0.1
+              },
+              "padding": {
+                "top": 2,
+                "right": 5,
+                "bottom": 2,
+                "left": 5
+              }
+            },
+            "bodyStyles": {
+              "fontSize": 13,
+              "characterSpacing": 0,
+              "alignment": "left",
+              "verticalAlignment": "middle",
+              "lineHeight": 1,
+              "fontColor": "#000000",
+              "borderColor": "#000000",
+              "backgroundColor": "",
+              "alternateBackgroundColor": "#ffffff",
+              "borderWidth": {
+                "top": 0.1,
+                "right": 0.1,
+                "bottom": 0.1,
+                "left": 0.1
+              },
+              "padding": {
+                "top": 4,
+                "right": 5,
+                "bottom": 4,
+                "left": 5
+              }
+            },
+            "columnStyles": {},
+            "required": false,
+            "readOnly": false
+          },
+          {
+            "name": "入力項目19",
+            "type": "text",
+            "content": "合計金額",
+            "position": {
+              "x": 127.53,
+              "y": 116.42
+            },
+            "width": 45,
+            "height": 10,
+            "rotate": 0,
+            "alignment": "left",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目20",
+            "type": "text",
+            "content": "￥",
+            "position": {
+              "x": 155.03,
+              "y": 116.69
+            },
+            "width": 45,
+            "height": 10,
+            "rotate": 0,
+            "alignment": "left",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目21",
+            "type": "text",
+            "content": "[出庫] 合計金額",
+            "position": {
+              "x": 159.81,
+              "y": 116.42
+            },
+            "width": 45,
+            "height": 10,
+            "rotate": 0,
+            "alignment": "left",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目22",
+            "type": "line",
+            "position": {
+              "x": 124,
+              "y": 124.58
+            },
+            "width": 77.78,
+            "height": 0.25,
+            "rotate": 0,
+            "opacity": 1,
+            "readOnly": true,
+            "color": "#000000",
+            "required": false,
+            "content": ""
+          },
+          {
+            "name": "入力項目23",
+            "type": "text",
+            "content": "備考",
+            "position": {
+              "x": 8.2,
+              "y": 229.13
+            },
+            "width": 45,
+            "height": 10,
+            "rotate": 0,
+            "alignment": "left",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目24",
+            "type": "text",
+            "content": "[納品書] 備考",
+            "position": {
+              "x": 11.91,
+              "y": 241.3
+            },
+            "width": 45,
+            "height": 10,
+            "rotate": 0,
+            "alignment": "left",
+            "verticalAlignment": "top",
+            "fontSize": 13,
+            "lineHeight": 1,
+            "characterSpacing": 0,
+            "fontColor": "#000000",
+            "backgroundColor": "",
+            "opacity": 1,
+            "strikethrough": false,
+            "underline": false,
+            "required": false
+          },
+          {
+            "name": "入力項目25",
+            "type": "rectangle",
+            "position": {
+              "x": 8.47,
+              "y": 237.06
+            },
+            "width": 192.94,
+            "height": 51.25,
+            "rotate": 0,
+            "opacity": 1,
+            "borderWidth": 0.25,
+            "borderColor": "#000000",
+            "color": "",
+            "readOnly": true,
+            "required": false,
+            "content": ""
+          },
+          {
+            "name": "field26",
+            "type": "qrcode",
+            "content": "Type Something...",
+            "position": {
+              "x": 145.02,
+              "y": 157.6
+            },
+            "backgroundColor": "#ffffff",
+            "barColor": "#000000",
+            "width": 30,
+            "height": 30,
+            "rotate": 0,
+            "opacity": 1,
+            "required": false
+          }
+        ]
+      ],
+      "basePdf": {
+        "width": 210,
+        "height": 297,
+        "padding": [
+          10,
+          0,
+          10,
+          0
+        ]
+      },
+      "pdfmeVersion": "5.0.0"
+    }
+  },
+  "inputs": [
+    {
+      "入力項目1": "納品書",
+      "入力項目2": "No.",
+      "入力項目3": "3",
+      "入力項目4": "24 Jul 2025",
+      "入力項目5": "zaico社福岡オフィス",
+      "入力項目6": "",
+      "入力項目8": "a",
+      "入力項目9": "",
+      "入力項目10": "Hanoi",
+      "入力項目11": "CIC tower",
+      "入力項目12": "FAX：",
+      "入力項目13": "",
+      "入力項目14": "合計金額",
+      "入力項目15": "￥",
+      "入力項目16": "12",
+      "入力項目19": "合計金額",
+      "入力項目20": "￥",
+      "入力項目21": "12",
+      "入力項目23": "備考",
+      "入力項目24": "",
+      "field26": "Type Something...",
+      "入力項目18": [
+        [
+          "A,B,C",
+          "12",
+          "1",
+          "12"
+        ]
+      ]
+    }
+  ]
+}

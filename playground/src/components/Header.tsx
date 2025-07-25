@@ -99,6 +99,7 @@ export default function Navigation() {
     { id: 'templates-nav', to: '/templates', label: 'Templates' },
     { id: 'designer-nav', to: '/designer', label: 'Designer' },
     { id: 'form-viewer-nav', to: '/form-viewer', label: 'Form/Viewer' },
+    { id: 'pdf-viewer-nav', to: '/pdf-viewer', label: 'PDF Viewer' },
   ];
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>

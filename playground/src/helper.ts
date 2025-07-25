@@ -109,6 +109,8 @@ export const generatePDF = async (currentRef: Designer | Form | Viewer | null) =
       ? (currentRef as Viewer | Form).getInputs()
       : getInputFromTemplate(template);
   const font = getFontsData();
+  console.log('Generating PDF with inputs:', inputs);
+  console.log('options:', options);
 
   try {
     const pdf = await generate({

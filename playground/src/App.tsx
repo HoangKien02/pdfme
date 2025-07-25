@@ -3,6 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import Designer from "./routes/Designer";
 import FormAndViewer from "./routes/FormAndViewer";
 import Templates from "./routes/Templates";
+import PdfViewer from "./routes/PdfViewer";
 import Header from "./components/Header";
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
         <Route path={"/"} element={<Designer />} />
         <Route path={"/designer"} element={<Designer />} />
         <Route path="/form-viewer" element={<FormAndViewer />} />
+        <Route path="/pdf-viewer" element={<PdfViewer />} />
         <Route path="/templates" element={<Templates isEmbedded={isEmbedded} />} />
       </Routes>
       <ToastContainer />

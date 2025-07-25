@@ -1,0 +1,76 @@
+{
+  "basePdf": {
+    "width": 210,
+    "height": 297,
+    "padding": [20, 20, 20, 20]
+  },
+  "schemas": [
+    [
+      {
+        "name": "title",
+        "type": "text",
+        "position": { "x": 20, "y": 30 },
+        "width": 170,
+        "height": 15,
+        "content": "Sample Document",
+        "fontName": "NotoSerifJP",
+        "fontSize": 16,
+        "fontColor": "#000000",
+        "alignment": "center"
+      },
+      {
+        "name": "description",
+        "type": "multiVariableText",
+        "position": { "x": 20, "y": 60 },
+        "width": 170,
+        "height": 40,
+        "content": "This is a sample description text that can be multiple lines.",
+        "fontName": "NotoSerifJP",
+        "fontSize": 12,
+        "fontColor": "#333333"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "position": { "x": 20, "y": 120 },
+        "width": 80,
+        "height": 10,
+        "content": "John Doe",
+        "fontName": "NotoSerifJP",
+        "fontSize": 12,
+        "fontColor": "#000000"
+      },
+      {
+        "name": "email",
+        "type": "text",
+        "position": { "x": 110, "y": 120 },
+        "width": 80,
+        "height": 10,
+        "content": "john@example.com",
+        "fontName": "NotoSerifJP",
+        "fontSize": 12,
+        "fontColor": "#0066cc"
+      },
+      {
+        "name": "date",
+        "type": "text",
+        "position": { "x": 20, "y": 140 },
+        "width": 80,
+        "height": 10,
+        "content": "2025-01-24",
+        "fontName": "NotoSerifJP",
+        "fontSize": 10,
+        "fontColor": "#666666"
+      },
+      {
+        "name": "signature",
+        "type": "image",
+        "position": { "x": 20, "y": 180 },
+        "width": 60,
+        "height": 30,
+        "content": ""
+      }
+    ]
+  ],
+  "pdfmeVersion": "5.0.0"
+}
