@@ -1,12 +1,26 @@
 import { DEFAULT_FONT_NAME, Plugin, PDFRenderProps, getFallbackFontName } from '@pdfme/common';
 import { uiRender as textUiRender } from '../text/uiRender.js';
 import { pdfRender as textPdfRender } from '../text/pdfRender.js';
+import { uiRender as barcodeUiRender } from '../barcodes/uiRender.js';
+import { pdfRender as barcodePdfRender } from '../barcodes/pdfRender.js';
 import line from '../shapes/line.js';
 import { rectangle } from '../shapes/rectAndEllipse.js';
 import type { CellSchema } from './types.js';
+import type { BarcodeSchema } from '../barcodes/types.js';
 import { getCellPropPanelSchema, getDefaultCellStyles } from './helper.js';
+import { DEFAULT_BARCODE_BG_COLOR, DEFAULT_BARCODE_COLOR } from '../barcodes/constants.js';
 const linePdfRender = line.pdf;
 const rectanglePdfRender = rectangle.pdf;
+
+const createBarcodeSchema = (cellSchema: CellSchema, qrText: string | undefined): BarcodeSchema => {
+  return {
+    ...cellSchema,
+    type: 'qrcode',
+    backgroundColor: DEFAULT_BARCODE_BG_COLOR,
+    barColor: DEFAULT_BARCODE_COLOR,
+    content: qrText,
+  };
+};
 
 const renderLine = async (
   arg: PDFRenderProps<CellSchema>,
@@ -93,34 +107,68 @@ const cellSchema: Plugin<CellSchema> = {
       // LEFT
       renderLine(arg, schema, { x: position.x, y: position.y }, borderWidth.left, height),
     ]);
-    // TEXT
-    await textPdfRender({
-      ...arg,
-      schema: {
-        ...schema,
-        type: 'text',
-        backgroundColor: '',
-        position: {
-          x: position.x + borderWidth.left + padding.left,
-          y: position.y + borderWidth.top + padding.top,
+    if (schema.isCellQrcode) {
+      const { value } = arg;
+      if (!value) return;
+      const barcodeSchema = createBarcodeSchema(schema, value);
+      await barcodePdfRender({
+        ...arg,
+        schema: {
+          ...barcodeSchema,
+          position: {
+            x: position.x + borderWidth.left + padding.left,
+            y: position.y + borderWidth.top + padding.top,
+          },
+          width: width - borderWidth.left - borderWidth.right - padding.left - padding.right,
+          height: height - borderWidth.top - borderWidth.bottom - padding.top - padding.bottom,
         },
-        width: width - borderWidth.left - borderWidth.right - padding.left - padding.right,
-        height: height - borderWidth.top - borderWidth.bottom - padding.top - padding.bottom,
-      },
-    });
+      });
+    }
+    else {
+      // Render normal text
+      await textPdfRender({
+        ...arg,
+        schema: {
+          ...schema,
+          type: 'text',
+          backgroundColor: '',
+          position: {
+            x: position.x + borderWidth.left + padding.left,
+            y: position.y + borderWidth.top + padding.top,
+          },
+          width: width - borderWidth.left - borderWidth.right - padding.left - padding.right,
+          height: height - borderWidth.top - borderWidth.bottom - padding.top - padding.bottom,
+        },
+      });
+    }
   },
   ui: async (arg) => {
     const { schema, rootElement } = arg;
     const { borderWidth, width, height, borderColor, backgroundColor } = schema;
     rootElement.style.backgroundColor = backgroundColor;
 
-    const textDiv = createTextDiv(schema);
-    await textUiRender({
-      ...arg,
-      schema: { ...schema, backgroundColor: '' },
-      rootElement: textDiv,
-    });
-    rootElement.appendChild(textDiv);
+    const contentDiv = createTextDiv(schema);
+
+    if (schema.isCellQrcode) {
+      if (!schema.content) {
+        return;
+      }
+      const barcodeSchema = createBarcodeSchema(schema, schema.content || '');
+      await barcodeUiRender({
+        ...arg,
+        schema: { ...barcodeSchema, backgroundColor: '' },
+        value: schema.content,
+        rootElement: contentDiv,
+      });
+    } else {
+      // Render normal text
+      await textUiRender({
+        ...arg,
+        schema: { ...schema, backgroundColor: '' },
+        rootElement: contentDiv,
+      });
+    }
+    rootElement.appendChild(contentDiv);
 
     const lines = [
       createLineDiv(`${width}mm`, `${borderWidth.top}mm`, '0mm', null, null, '0mm', borderColor),

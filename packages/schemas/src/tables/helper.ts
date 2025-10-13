@@ -136,16 +136,16 @@ export const getCellPropPanelSchema = (arg: {
     },
     ...(isBody
       ? {
-          alternateBackgroundColor: {
-            title: i18n('schemas.table.alternateBackgroundColor'),
-            type: 'string',
-            widget: 'color',
-            props: {
-              disabledAlpha: true,
-            },
-            rules: [{ pattern: HEX_COLOR_PATTERN, message: i18n('validation.hexColor') }],
+        alternateBackgroundColor: {
+          title: i18n('schemas.table.alternateBackgroundColor'),
+          type: 'string',
+          widget: 'color',
+          props: {
+            disabledAlpha: true,
           },
-        }
+          rules: [{ pattern: HEX_COLOR_PATTERN, message: i18n('validation.hexColor') }],
+        },
+      }
       : {}),
     '-': { type: 'void', widget: 'Divider' },
     borderWidth: {

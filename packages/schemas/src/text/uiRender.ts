@@ -88,8 +88,7 @@ export const uiRender = async (arg: UIRenderProps<TextSchema>) => {
       .split('')
       .map(
         (l, i) =>
-          `<span style="letter-spacing:${
-            String(value).length === i + 1 ? 0 : 'inherit'
+          `<span style="letter-spacing:${String(value).length === i + 1 ? 0 : 'inherit'
           };">${l}</span>`,
       )
       .join('');

@@ -19,7 +19,7 @@ import type {
 } from './types.js';
 import { Cell, Column, Row, Table } from './classes.js';
 
-type StyleProp = 'styles' | 'headStyles' | 'bodyStyles' | 'alternateRowStyles' | 'columnStyles';
+type StyleProp = 'styles' | 'headStyles' | 'bodyStyles' | 'alternateRowStyles' | 'columnStyles' | 'qrCodePositions';
 
 interface CreateTableArgs {
   schema: Schema;
@@ -45,6 +45,7 @@ interface UserOptions {
   columnStyles?: {
     [key: string]: Partial<Styles>;
   };
+  qrCodePositions?: { [key: string]: { [key: string]: { backgroundColor?: string; barColor?: string } } };
 }
 
 function parseSection(
@@ -73,8 +74,16 @@ function parseSection(
           } else {
             rawCell = rawRow[column.index];
           }
+          let isCellQrCode = false
+          if (sectionName === 'body') {
+            const qrCodePos = styleProps.qrCodePositions?.[String(column.index)]?.[String(rowIndex)];
+            if (qrCodePos) {
+              console.log('index', column.index, rowIndex, qrCodePos);
+              isCellQrCode = true;
+            }
+          }
           const styles = cellStyles(sectionName, column, rowIndex, styleProps, fallbackFontName);
-          const cell = new Cell(rawCell, styles, sectionName);
+          const cell = new Cell(rawCell, styles, sectionName, isCellQrCode);
           cells[column.index] = cell;
 
           columnSpansLeft = 0;
@@ -202,6 +211,7 @@ function getTableOptions(schema: TableSchema, body: string[][]): UserOptions {
     alternateRowStyles: { backgroundColor: schema.bodyStyles.alternateBackgroundColor },
     columnStyles,
     margin: { top: 0, right: 0, left: schema.position.x, bottom: 0 },
+    qrCodePositions: schema.qrCodeOptions
   };
 }
 
@@ -212,11 +222,15 @@ function parseStyles(cInput: UserOptions) {
     bodyStyles: {},
     alternateRowStyles: {},
     columnStyles: {},
+    qrCodePositions: {}
   };
   for (const prop of Object.keys(styleOptions) as StyleProp[]) {
     if (prop === 'columnStyles') {
       const current = cInput[prop];
       styleOptions.columnStyles = Object.assign({}, current);
+    } else if (prop === 'qrCodePositions') {
+      const current = cInput[prop];
+      styleOptions.qrCodePositions = Object.assign({}, current);
     } else {
       const allOptions = [cInput];
       const styles = allOptions.map((opts) => opts[prop] || {});
@@ -255,14 +269,15 @@ export function createSingleTable(body: string[][], args: CreateTableArgs) {
   if (!isBlankPdf(basePdf)) {
     console.warn(
       '[@pdfme/schema/table]' +
-        'When specifying a custom PDF for basePdf, ' +
-        'you cannot use features such as page breaks or re-layout of other elements.' +
-        'To utilize these features, please define basePdf as follows:\n' +
-        '{ width: number; height: number; padding: [number, number, number, number]; }',
+      'When specifying a custom PDF for basePdf, ' +
+      'you cannot use features such as page breaks or re-layout of other elements.' +
+      'To utilize these features, please define basePdf as follows:\n' +
+      '{ width: number; height: number; padding: [number, number, number, number]; }',
     );
   }
 
   const schema = cloneDeep(args.schema) as TableSchema;
+  console.log('schema in createSingleTable', schema);
   const { start } = schema.__bodyRange || { start: 0 };
   if (start % 2 === 1) {
     const alternateBackgroundColor = schema.bodyStyles.alternateBackgroundColor;

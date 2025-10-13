@@ -20,19 +20,26 @@ export class Cell {
   height = 0;
   x = 0;
   y = 0;
+  isCellQrcode = false;
 
-  constructor(raw: string, styles: Styles, section: Section) {
+  constructor(raw: string, styles: Styles, section: Section, isCellQrcode: boolean) {
     this.styles = styles;
     this.section = section;
     this.raw = raw;
     const splitRegex = /\r\n|\r|\n/g;
     this.text = raw.split(splitRegex);
+    this.isCellQrcode = isCellQrcode;
   }
 
   getContentHeight() {
     const lineCount = Array.isArray(this.text) ? this.text.length : 1;
     const lineHeight = pt2mm(this.styles.fontSize) * this.styles.lineHeight;
     const vPadding = this.padding('top') + this.padding('bottom');
+    const qrCodeDefaultHeight = 25; // in mm
+    if (this.isCellQrcode) {
+      const height = Math.max(lineCount * lineHeight + vPadding, qrCodeDefaultHeight + vPadding);
+      return Math.max(height, this.styles.minCellHeight);
+    }
     const height = lineCount * lineHeight + vPadding;
     return Math.max(height, this.styles.minCellHeight);
   }
@@ -117,8 +124,10 @@ export class Table {
     _cache: Map<string | number, FontKitFont>;
   }) {
     const { input, content, font, _cache } = arg;
+    console.log('new table input', input, content);
     const table = new Table(input, content);
 
+    console.log("table before width calc", table);
     await calculateWidths({ table, font, _cache });
 
     return table;

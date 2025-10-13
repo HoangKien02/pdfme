@@ -1,4 +1,4 @@
-import type { ALIGNMENT, VERTICAL_ALIGNMENT } from '../text/types.js';
+import type { ALIGNMENT, CELL_TYPE, VERTICAL_ALIGNMENT } from '../text/types.js';
 import type { Schema } from '@pdfme/common';
 
 export type Spacing = { top: number; right: number; bottom: number; left: number };
@@ -34,7 +34,16 @@ export interface TableSchema extends Schema {
   bodyStyles: CellStyle & { alternateBackgroundColor: string };
   columnStyles: {
     alignment?: { [colIndex: number]: ALIGNMENT };
+    cellTypes?: { [colIndex: number]: { [rowIndex: number]: CELL_TYPE } };
   };
+  qrCodeOptions?: {
+    [colIndex: number]: {
+      [rowIndex: number]: {
+        backgroundColor?: string;
+        barColor?: string;
+      };
+    };
+  }
 }
 
 export interface Styles {
@@ -73,6 +82,7 @@ export interface Settings {
   showHead: boolean;
   tableLineWidth: number;
   tableLineColor: string;
+  qrCodePositions?: { [colIndex: number]: { [rowIndex: number]: { backgroundColor?: string; barColor?: string } } };
 }
 
 export interface StylesProps {
@@ -81,6 +91,7 @@ export interface StylesProps {
   bodyStyles: Partial<Styles>;
   alternateRowStyles: Partial<Styles>;
   columnStyles: { [key: string]: Partial<Styles> };
+  qrCodePositions?: { [key: string]: { [key: string]: { backgroundColor?: string; barColor?: string } } };
 }
 
 export type Section = 'head' | 'body';

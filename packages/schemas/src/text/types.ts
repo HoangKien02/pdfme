@@ -4,6 +4,7 @@ import type { Font as FontKitFont } from 'fontkit';
 export type ALIGNMENT = 'left' | 'center' | 'right' | 'justify';
 export type VERTICAL_ALIGNMENT = 'top' | 'middle' | 'bottom';
 export type DYNAMIC_FONT_SIZE_FIT = 'horizontal' | 'vertical';
+export type CELL_TYPE = 'text' | 'qrcode';
 
 export type FontWidthCalcValues = {
   font: FontKitFont;

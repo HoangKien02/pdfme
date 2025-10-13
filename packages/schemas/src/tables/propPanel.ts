@@ -99,6 +99,18 @@ export const propPanel: PropPanel<TableSchema> = {
     bodyStyles: Object.assign(getDefaultCellStyles(), {
       alternateBackgroundColor: '#f5f5f5',
     }),
-    columnStyles: {},
+    columnStyles: {
+      cellTypes: {
+        "1": { "1": "qrcode" }
+      }
+    },
+    qrCodeOptions: {
+      1: {
+        1: {
+          backgroundColor: '#ffffff',
+          barColor: '#000000',
+        },
+      },
+    }
   },
 };

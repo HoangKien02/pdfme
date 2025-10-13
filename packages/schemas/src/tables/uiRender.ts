@@ -33,6 +33,164 @@ function createButton(options: {
   return button;
 }
 
+function showCellMenu(
+  event: MouseEvent,
+  position: { rowIndex: number; colIndex: number },
+  arg: UIRenderProps<TableSchema>
+) {
+  // Remove any existing menu
+  const existingMenu = document.getElementById('cell-context-menu');
+  if (existingMenu) {
+    existingMenu.remove();
+  }
+
+  // Check if current cell is a QR code
+  const { rowIndex, colIndex } = position;
+  const startRange = arg.schema.__bodyRange?.start ?? 0;
+  const actualRowIndex = rowIndex + startRange;
+  const isQrCodeCell = arg.schema.qrCodeOptions?.[colIndex]?.[actualRowIndex] !== undefined;
+
+  // Create menu container
+  const menu = document.createElement('div');
+  menu.id = 'cell-context-menu';
+  menu.style.position = 'fixed';
+  menu.style.left = `${event.clientX}px`;
+  menu.style.top = `${event.clientY}px`;
+  menu.style.backgroundColor = 'white';
+  menu.style.border = '1px solid #ccc';
+  menu.style.borderRadius = '4px';
+  menu.style.padding = '4px 0';
+  menu.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
+  menu.style.zIndex = '10000';
+  menu.style.minWidth = '150px';
+  menu.style.fontSize = '14px';
+
+  // Menu options based on cell type
+  const menuItems = [];
+  if (isQrCodeCell) {
+    menuItems.push({ label: 'delete qr code', action: () => qrCodeDeletion(position, arg) });
+  } else {
+    menuItems.push({ label: 'qr code insertion', action: () => qrCodeInsertion(position, arg) });
+  }
+
+  menuItems.forEach((item) => {
+    const menuItem = document.createElement('div');
+    menuItem.textContent = item.label;
+    menuItem.style.padding = '8px 16px';
+    menuItem.style.cursor = 'pointer';
+    menuItem.style.borderBottom = '1px solid #f0f0f0';
+
+    menuItem.addEventListener('mouseover', () => {
+      menuItem.style.backgroundColor = '#f0f0f0';
+    });
+
+    menuItem.addEventListener('mouseout', () => {
+      menuItem.style.backgroundColor = 'white';
+    });
+
+    menuItem.addEventListener('click', () => {
+      item.action();
+      menu.remove();
+    });
+
+    menu.appendChild(menuItem);
+  });
+
+  // Remove last border from the last item
+  const lastItem = menu.lastElementChild as HTMLElement;
+  if (lastItem) {
+    lastItem.style.borderBottom = 'none';
+  }
+
+  // Add to document
+  document.body.appendChild(menu);
+
+  // Remove menu when clicking outside
+  const closeMenu = (e: MouseEvent) => {
+    if (!menu.contains(e.target as Node)) {
+      menu.remove();
+      document.removeEventListener('click', closeMenu);
+    }
+  };
+
+  setTimeout(() => {
+    document.addEventListener('click', closeMenu);
+  }, 0);
+}
+
+// Store clipboard content
+
+const qrCodeInsertion = (
+  position: { rowIndex: number; colIndex: number },
+  arg: UIRenderProps<TableSchema>
+) => {
+  if (arg.onChange) {
+    const currentValue = JSON.parse(arg.value || '[]') as string[][];
+    const { rowIndex, colIndex } = position;
+
+    // Update the cell content with sample QR text
+    const startRange = arg.schema.__bodyRange?.start ?? 0;
+    const actualRowIndex = rowIndex + startRange;
+
+
+    if (currentValue[actualRowIndex]) {
+      // Set sample QR code content
+      currentValue[actualRowIndex][colIndex] = 'Sample QR Text';
+
+      // Update qrCodeOptions to mark this cell as QR code
+      const qrCodeOptions = { ...arg.schema.qrCodeOptions };
+      if (!qrCodeOptions[colIndex]) {
+        qrCodeOptions[colIndex] = {};
+      }
+      qrCodeOptions[colIndex][actualRowIndex] = {
+        backgroundColor: '#ffffff',
+        barColor: '#000000',
+      };
+
+      // Apply both changes
+      arg.onChange([
+        { key: 'content', value: JSON.stringify(currentValue) },
+        { key: 'qrCodeOptions', value: qrCodeOptions }
+      ]);
+    }
+  }
+}
+
+const qrCodeDeletion = (
+  position: { rowIndex: number; colIndex: number },
+  arg: UIRenderProps<TableSchema>
+) => {
+  if (arg.onChange) {
+    const currentValue = JSON.parse(arg.value || '[]') as string[][];
+    const { rowIndex, colIndex } = position;
+
+    // Update the cell content to remove QR code
+    const startRange = arg.schema.__bodyRange?.start ?? 0;
+    const actualRowIndex = rowIndex + startRange;
+
+    if (currentValue[actualRowIndex]) {
+      // Clear cell content
+      currentValue[actualRowIndex][colIndex] = '';
+
+      // Remove from qrCodeOptions to unmark this cell as QR code
+      const qrCodeOptions = { ...arg.schema.qrCodeOptions };
+      if (qrCodeOptions[colIndex] && qrCodeOptions[colIndex][actualRowIndex]) {
+        delete qrCodeOptions[colIndex][actualRowIndex];
+        // Clean up empty column objects
+        if (Object.keys(qrCodeOptions[colIndex]).length === 0) {
+          delete qrCodeOptions[colIndex];
+        }
+      }
+
+      // Apply both changes
+      arg.onChange([
+        { key: 'content', value: JSON.stringify(currentValue) },
+        { key: 'qrCodeOptions', value: qrCodeOptions }
+      ]);
+    }
+  }
+}
+
 type RowType = InstanceType<typeof Row>;
 
 const cellUiRender = cell.ui;
@@ -77,9 +235,8 @@ const setBorder = (
   borderPosition: 'Top' | 'Left' | 'Right' | 'Bottom',
   arg: UIRenderProps<TableSchema>,
 ) => {
-  div.style[`border${borderPosition}`] = `${String(arg.schema.tableStyles.borderWidth)}mm solid ${
-    arg.schema.tableStyles.borderColor
-  }`;
+  div.style[`border${borderPosition}`] = `${String(arg.schema.tableStyles.borderWidth)}mm solid ${arg.schema.tableStyles.borderColor
+    }`;
 };
 
 const drawBorder = (
@@ -118,6 +275,7 @@ const renderRowUi = (args: {
   onChangeEditingPosition: (position: { rowIndex: number; colIndex: number }) => void;
   offsetY?: number;
 }) => {
+
   const { rows, arg, onChangeEditingPosition, offsetY = 0, editingPosition } = args;
   const value = JSON.parse(arg.value || '[]') as string[][];
 
@@ -142,6 +300,13 @@ const renderRowUi = (args: {
       div.addEventListener('click', () => {
         if (arg.mode === 'viewer') return;
         onChangeEditingPosition({ rowIndex, colIndex });
+      });
+
+      // Add double-click handler for menu selection
+      div.addEventListener('dblclick', (e) => {
+        if (arg.mode === 'viewer') return;
+        e.stopPropagation();
+        showCellMenu(e, { rowIndex, colIndex }, arg);
       });
       arg.rootElement.appendChild(div);
       const isEditing =
@@ -185,6 +350,7 @@ const renderRowUi = (args: {
           width: cell.width,
           height: cell.height,
           ...convertToCellStyle(cell.styles),
+          isCellQrcode: cell.isCellQrcode,
         },
       });
       colOffsetX += cell.width;
@@ -203,7 +369,7 @@ const resetEditingPosition = () => {
 };
 
 export const uiRender = async (arg: UIRenderProps<TableSchema>) => {
-  const { rootElement, onChange, schema, value, mode, scale} = arg;
+  const { rootElement, onChange, schema, value, mode, scale } = arg;
   const body = getBody(value);
   const bodyWidthRange = getBodyWithRange(value, schema.__bodyRange);
   const table = await createSingleTable(bodyWidthRange, arg);
